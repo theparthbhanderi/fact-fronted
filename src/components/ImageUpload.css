@@ -93,10 +93,8 @@
   transition: all 0.2s;
 }
 
-@media (prefers-color-scheme: dark) {
-  .clear-btn {
-    background: rgba(118, 118, 128, 0.24);
-  }
+.dark .clear-btn {
+  background: rgba(118, 118, 128, 0.24);
 }
 
 .clear-btn:hover:not(:disabled) {

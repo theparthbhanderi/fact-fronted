@@ -39,10 +39,8 @@
   letter-spacing: -0.2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .history-search input {
-    background: rgba(118, 118, 128, 0.24);
-  }
+.dark .history-search input {
+  background: rgba(118, 118, 128, 0.24);
 }
 
 .history-search input:focus {
@@ -123,10 +121,8 @@
   letter-spacing: 0.02em;
 }
 
-@media (prefers-color-scheme: dark) {
-  .history-verdict {
-    background: rgba(255, 255, 255, 0.05);
-  }
+.dark .history-verdict {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .history-date {

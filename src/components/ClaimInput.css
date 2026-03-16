@@ -26,10 +26,8 @@
   letter-spacing: -0.2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .claim-input input {
-    background: rgba(118, 118, 128, 0.24);
-  }
+.dark .claim-input input {
+  background: rgba(118, 118, 128, 0.24);
 }
 
 .claim-input input:focus {

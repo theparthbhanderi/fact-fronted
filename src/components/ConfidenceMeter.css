@@ -37,10 +37,8 @@
   overflow: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  .meter-track {
-    background: rgba(118, 118, 128, 0.24);
-  }
+.dark .meter-track {
+  background: rgba(118, 118, 128, 0.24);
 }
 
 .meter-fill {

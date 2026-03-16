@@ -60,10 +60,8 @@
   position: relative;
 }
 
-@media (prefers-color-scheme: dark) {
-  .input-tabs {
-    background: rgba(118, 118, 128, 0.24);
-  }
+.dark .input-tabs {
+  background: rgba(118, 118, 128, 0.24);
 }
 
 .tab-btn {
