@@ -39,7 +39,7 @@
 }
 
 .dark .main-nav {
-  background: rgba(28, 28, 30, 0.75);
+  background: rgba(28, 28, 30, 0.90);
 }
 
 .nav-container {
@@ -141,7 +141,7 @@
 }
 
 .dark .mobile-header {
-  background: rgba(28, 28, 30, 0.75);
+  background: rgba(28, 28, 30, 0.90);
 }
 
 .mobile-header h2 {
@@ -167,7 +167,7 @@
 }
 
 .dark .bottom-nav {
-  background: rgba(28, 28, 30, 0.85);
+  background: rgba(28, 28, 30, 0.90);
 }
 
 .bottom-nav-container {
