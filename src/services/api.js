@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "/api",
   timeout: 120000, // 2 min — LLM can be slow on free tier
   headers: { "Content-Type": "application/json" },
 });
