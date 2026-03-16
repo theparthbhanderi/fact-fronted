@@ -7,18 +7,18 @@
 .input-wrapper {
   display: flex;
   gap: 16px;
-  border-radius: 14px;
   overflow: hidden;
   background: transparent;
 }
 
 .claim-input input {
   flex: 1;
-  padding: 16px 24px;
+  padding: 0 24px;
+  height: var(--input-height);
   font-size: 1.05rem;
-  background: rgba(118, 118, 128, 0.12); /* Standard iOS secondary/tertiary fill */
+  background: rgba(118, 118, 128, 0.12);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   color: var(--text-primary);
   outline: none;
   font-family: inherit;
@@ -43,12 +43,13 @@
 
 .claim-input button {
   padding: 0 32px;
+  height: var(--btn-height);
   font-size: 1.05rem;
   font-weight: 600;
   background-color: var(--accent);
   color: #fff;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -78,7 +79,8 @@
     gap: 16px;
   }
   .claim-input button {
-    padding: 16px;
+    padding: 0 16px;
+    height: var(--btn-height);
     width: 100%;
   }
 }
