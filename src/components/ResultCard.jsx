@@ -35,7 +35,7 @@ export default function ResultCard({ result }) {
         <h3 className="section-label">Claim</h3>
         {result.original_claim && result.original_claim !== result.corrected_claim ? (
           <>
-            <p className="claim-text" style={{ textDecoration: "line-through", color: "#888", fontSize: "0.9em", marginBottom: "4px" }}>
+            <p className="claim-text" style={{ textDecoration: "line-through", color: "var(--text-muted)", fontSize: "0.9em", marginBottom: "4px" }}>
               "{result.original_claim}"
             </p>
             <p className="claim-text">"{result.corrected_claim}"</p>

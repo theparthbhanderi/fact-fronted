@@ -112,7 +112,7 @@ export default function HistoryPanel() {
                 <h3 className="history-claim">
                   {record.original_claim && record.original_claim !== record.claim ? (
                     <>
-                      <span style={{ textDecoration: "line-through", color: "#888", fontSize: "0.75em", display: "block", marginBottom: "4px" }}>
+                      <span style={{ textDecoration: "line-through", color: "var(--text-muted)", fontSize: "0.75em", display: "block", marginBottom: "4px" }}>
                         "{record.original_claim}"
                       </span>
                       "{record.claim}"

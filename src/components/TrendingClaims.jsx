@@ -14,7 +14,7 @@ export default function TrendingClaims({ data }) {
             <span className="stats-claim">
               {item.original_claim && item.original_claim !== item.claim ? (
                 <>
-                  <span style={{ textDecoration: "line-through", color: "#888", marginRight: "8px" }}>"{item.original_claim}"</span>
+                  <span style={{ textDecoration: "line-through", color: "var(--text-muted)", marginRight: "8px" }}>"{item.original_claim}"</span>
                   "{item.claim}"
                 </>
               ) : (
