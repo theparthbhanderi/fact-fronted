@@ -8,13 +8,13 @@
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin: 0 0 12px 4px; /* Slight indent like iOS list headers */
+  margin: 0 0 16px 8px; /* Slight indent like iOS list headers */
 }
 
 .evidence-grid {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .evidence-card {

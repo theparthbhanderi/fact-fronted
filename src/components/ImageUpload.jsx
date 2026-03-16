@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { motion } from "framer-motion";
 import "./ImageUpload.css";
 
 export default function ImageUpload({ onSubmit, loading }) {
@@ -33,9 +34,12 @@ export default function ImageUpload({ onSubmit, loading }) {
     <div className="image-upload-wrapper">
       <form onSubmit={handleSubmit} className="image-upload-form">
         {!previewUrl ? (
-          <div 
+          <motion.div 
             className="upload-dropzone" 
             onClick={() => fileInputRef.current?.click()}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             <span className="upload-icon">📸</span>
             <p>Click to upload a news screenshot</p>
@@ -48,7 +52,7 @@ export default function ImageUpload({ onSubmit, loading }) {
               style={{ display: "none" }}
               disabled={loading}
             />
-          </div>
+          </motion.div>
         ) : (
           <div className="preview-container">
             <img src={previewUrl} alt="Screenshot preview" className="image-preview" />
@@ -61,13 +65,15 @@ export default function ImageUpload({ onSubmit, loading }) {
               >
                 ✕ Clear
               </button>
-              <button 
+              <motion.button 
                 type="submit" 
                 className="analyze-btn" 
                 disabled={loading}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 {loading ? "Extracting..." : "Analyze Screenshot"}
-              </button>
+              </motion.button>
             </div>
           </div>
         )}

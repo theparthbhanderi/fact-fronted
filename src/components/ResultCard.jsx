@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import ConfidenceMeter from "./ConfidenceMeter";
 import "./ResultCard.css";
 
@@ -15,7 +16,13 @@ export default function ResultCard({ result }) {
   const v = VERDICT_STYLES[result.verdict] || VERDICT_STYLES.UNVERIFIED;
 
   return (
-    <div className="result-card" style={{ "--accent": v.color }}>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      className="result-card"
+      style={{ "--accent": v.color }}
+    >
       {/* Verdict badge */}
       <div className="verdict-section" style={{ background: v.bg }}>
         <span className="verdict-badge" style={{ color: v.color }}>
@@ -49,6 +56,6 @@ export default function ResultCard({ result }) {
         <h3 className="section-label">AI Analysis</h3>
         <p className="explanation-text">{result.explanation}</p>
       </div>
-    </div>
+    </motion.div>
   );
 }

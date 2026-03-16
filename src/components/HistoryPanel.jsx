@@ -1,6 +1,20 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { getHistory, searchHistory } from "../services/api";
 import "./HistoryPanel.css";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const itemAnim = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
 
 export default function HistoryPanel() {
   const [history, setHistory] = useState([]);
@@ -79,10 +93,16 @@ export default function HistoryPanel() {
       ) : history.length === 0 ? (
         <div className="history-empty">No fact-checks found.</div>
       ) : (
-        <div className="history-list">
+        <motion.div 
+          className="history-list"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
           {history.map((record) => (
-            <div 
+            <motion.div 
               key={record.id} 
+              variants={itemAnim}
               className={`history-card ${expandedId === record.id ? 'expanded' : ''}`}
             >
               <div 
@@ -115,7 +135,12 @@ export default function HistoryPanel() {
               </div>
               
               {expandedId === record.id && (
-                <div className="history-card-body">
+                <motion.div 
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="history-card-body"
+                >
                   <div className="history-explanation">
                     <h4>AI Explanation</h4>
                     <p>{record.explanation}</p>
@@ -135,11 +160,11 @@ export default function HistoryPanel() {
                       </ul>
                     </div>
                   )}
-                </div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );

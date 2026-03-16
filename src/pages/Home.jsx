@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ClaimInput from "../components/ClaimInput";
 import ImageUpload from "../components/ImageUpload";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -67,27 +68,38 @@ export default function Home() {
       {/* Input */}
       <section className="input-section">
         <div className="input-tabs">
-          <button 
-            className={`tab-btn ${inputType === "text" ? "active" : ""}`}
-            onClick={() => setInputType("text")}
-            disabled={loading}
-          >
-            Enter Claim
-          </button>
-          <button 
-            className={`tab-btn ${inputType === "image" ? "active" : ""}`}
-            onClick={() => setInputType("image")}
-            disabled={loading}
-          >
-            Upload Screenshot
-          </button>
+          {["text", "image"].map((type) => (
+            <button
+              key={type}
+              className={`tab-btn ${inputType === type ? "active" : ""}`}
+              onClick={() => setInputType(type)}
+              disabled={loading}
+            >
+              {type === "text" ? "Enter Claim" : "Upload Screenshot"}
+            </button>
+          ))}
+          <motion.div
+            className="tab-active-pill"
+            animate={{ left: inputType === "text" ? "2px" : "calc(50%)" }}
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          />
         </div>
 
-        {inputType === "text" ? (
-          <ClaimInput onSubmit={handleTextSubmit} loading={loading} />
-        ) : (
-          <ImageUpload onSubmit={handleImageSubmit} loading={loading} />
-        )}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={inputType}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            {inputType === "text" ? (
+              <ClaimInput onSubmit={handleTextSubmit} loading={loading} />
+            ) : (
+              <ImageUpload onSubmit={handleImageSubmit} loading={loading} />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </section>
 
       {/* Results area */}
