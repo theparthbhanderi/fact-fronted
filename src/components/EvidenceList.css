@@ -1,52 +1,62 @@
 .evidence-list {
-  animation: slideUp 0.6s ease 0.1s both;
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 
 .evidence-title {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #94a3b8;
+  color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin: 0 0 14px;
+  letter-spacing: 0.04em;
+  margin: 0 0 12px 4px; /* Slight indent like iOS list headers */
 }
 
 .evidence-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .evidence-card {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   text-decoration: none;
   color: inherit;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.evidence-card:active {
+  background-color: var(--border);
+  transform: scale(0.98);
 }
 
 .evidence-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(99, 102, 241, 0.3);
-  transform: translateX(4px);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+@media (prefers-color-scheme: dark) {
+  .evidence-card:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
 }
 
 .evidence-index {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: rgba(99, 102, 241, 0.12);
-  color: #818cf8;
-  font-size: 0.8rem;
-  font-weight: 700;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(0, 122, 255, 0.1); /* light blue iOS */
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
   flex-shrink: 0;
 }
 
@@ -56,29 +66,30 @@
 }
 
 .evidence-headline {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  color: #e2e8f0;
+  color: var(--text-primary);
   margin: 0 0 4px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  letter-spacing: -0.2px;
 }
 
 .evidence-source {
-  font-size: 0.78rem;
-  color: #64748b;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
 .evidence-arrow {
-  color: #64748b;
-  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-size: 1.2rem;
   flex-shrink: 0;
   transition: color 0.2s;
 }
 
 .evidence-card:hover .evidence-arrow {
-  color: #818cf8;
+  color: var(--text-primary);
 }
 
 @media (max-width: 500px) {

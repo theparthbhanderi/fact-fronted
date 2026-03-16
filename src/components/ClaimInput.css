@@ -6,66 +6,79 @@
 
 .input-wrapper {
   display: flex;
-  gap: 0;
-  border-radius: 16px;
+  gap: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.input-wrapper:focus-within {
-  border-color: rgba(99, 102, 241, 0.5);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  background: transparent;
 }
 
 .claim-input input {
   flex: 1;
-  padding: 18px 24px;
-  font-size: 1rem;
-  background: transparent;
+  padding: 16px 20px;
+  font-size: 1.05rem;
+  background: rgba(118, 118, 128, 0.12); /* Standard iOS secondary/tertiary fill */
   border: none;
-  color: #f1f5f9;
+  border-radius: 12px;
+  color: var(--text-primary);
   outline: none;
   font-family: inherit;
+  transition: background-color 0.2s;
+  letter-spacing: -0.2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .claim-input input {
+    background: rgba(118, 118, 128, 0.24);
+  }
+}
+
+.claim-input input:focus {
+  background: var(--surface);
+  box-shadow: 0 0 0 2px var(--accent);
 }
 
 .claim-input input::placeholder {
-  color: rgba(148, 163, 184, 0.6);
+  color: var(--text-muted);
 }
 
 .claim-input button {
-  padding: 18px 32px;
-  font-size: 0.95rem;
+  padding: 0 24px;
+  font-size: 1.05rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background-color: var(--accent);
   color: #fff;
   border: none;
+  border-radius: 12px;
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
   transition: opacity 0.2s, transform 0.1s;
+  letter-spacing: -0.2px;
 }
 
 .claim-input button:hover:not(:disabled) {
-  opacity: 0.9;
+  opacity: 0.85; /* iOS style button hover is usually just opacity or slight darken */
 }
 
 .claim-input button:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: scale(0.96);
+  opacity: 0.7;
 }
 
 .claim-input button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  background-color: var(--border);
+  color: var(--text-secondary);
 }
 
 @media (max-width: 600px) {
   .input-wrapper {
     flex-direction: column;
-    border-radius: 14px;
+    gap: 12px;
   }
   .claim-input button {
-    border-radius: 0 0 14px 14px;
+    padding: 16px;
+    width: 100%;
   }
 }

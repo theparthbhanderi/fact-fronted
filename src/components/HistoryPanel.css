@@ -1,7 +1,7 @@
 .history-panel {
   width: 100%;
   max-width: 860px;
-  margin: 60px auto 40px;
+  margin: 40px auto;
   padding: 0 20px;
 }
 
@@ -10,51 +10,61 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 16px;
   flex-wrap: wrap;
   gap: 16px;
 }
 
 .history-header h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.8rem; /* Slightly larger, more "Large Title" iOS */
+  font-weight: 700;
   margin: 0;
   color: var(--text-primary);
+  letter-spacing: -0.8px;
 }
 
 .history-search {
   display: flex;
-  gap: 8px;
+  gap: 12px;
 }
 
 .history-search input {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(118, 118, 128, 0.12);
   color: var(--text-primary);
-  font-size: 0.9rem;
+  font-size: 1rem;
   width: 250px;
+  transition: background-color 0.2s;
+  letter-spacing: -0.2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .history-search input {
+    background: rgba(118, 118, 128, 0.24);
+  }
 }
 
 .history-search input:focus {
   outline: none;
-  border-color: var(--primary-accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 2px var(--accent);
 }
 
 .history-search button {
-  padding: 8px 16px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
-  border: 1px solid transparent;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background-color: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--border);
   cursor: pointer;
+  font-weight: 500;
   transition: all 0.2s;
+  letter-spacing: -0.2px;
 }
 
 .history-search button:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background-color: var(--border);
 }
 
 .history-list {
@@ -64,19 +74,20 @@
 }
 
 .history-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   overflow: hidden;
-  transition: border-color 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s, background-color 0.2s;
 }
 
-.history-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+.history-card:active {
+  transform: scale(0.98);
 }
 
 .history-card-header {
-  padding: 20px;
+  padding: 20px 24px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -85,12 +96,13 @@
 }
 
 .history-claim {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 500;
   margin: 0;
   color: var(--text-primary);
   line-height: 1.4;
   flex: 1;
+  letter-spacing: -0.3px;
 }
 
 .history-meta {
@@ -102,39 +114,47 @@
 }
 
 .history-verdict {
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
   border: 1px solid currentColor;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.03);
+  letter-spacing: 0.02em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .history-verdict {
+    background: rgba(255, 255, 255, 0.05);
+  }
 }
 
 .history-date {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
 }
 
 .history-card-body {
-  padding: 0 20px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  margin-top: 10px;
+  padding: 0 24px 24px;
+  border-top: 0.5px solid var(--border);
+  margin-top: 4px;
   padding-top: 20px;
 }
 
 .history-explanation h4, .history-evidence h4 {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   margin: 0 0 8px;
 }
 
 .history-explanation p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--text-primary);
   margin: 0 0 20px;
+  letter-spacing: -0.2px;
 }
 
 .history-evidence ul {
@@ -143,11 +163,11 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .history-evidence a {
-  color: #60a5fa;
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
 }
@@ -157,14 +177,17 @@
 }
 
 .history-ev-title {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  letter-spacing: -0.2px;
 }
 
 .history-loading, .history-error, .history-empty {
   text-align: center;
   padding: 40px;
   color: var(--text-secondary);
+  font-size: 1.05rem;
+  letter-spacing: -0.2px;
 }
 
 @media (max-width: 600px) {
@@ -177,4 +200,11 @@
     width: 100%;
     justify-content: space-between;
   }
+  .history-search {
+    width: 100%;
+  }
+  .history-search input {
+    flex: 1;
+  }
 }
+

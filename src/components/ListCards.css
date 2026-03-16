@@ -11,40 +11,45 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 16px;
-  transition: transform 0.2s, background 0.2s;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+.stats-item:active {
+  transform: scale(0.98);
 }
 
 .stats-item:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.04);
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
-.stats-item.false-item:hover {
-  background: rgba(239, 68, 68, 0.05);
-  border-color: rgba(239, 68, 68, 0.2);
+@media (prefers-color-scheme: dark) {
+  .stats-item:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
 }
 
 .stats-rank {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  background: rgba(167, 139, 250, 0.2);
-  color: #a78bfa;
+  border-radius: 10px; /* iOS squircle-ish */
+  background: rgba(0, 122, 255, 0.1); /* light blue iOS */
+  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1rem;
   flex-shrink: 0;
 }
 
 .stats-rank.danger {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background: rgba(255, 59, 48, 0.1);
+  color: var(--danger);
 }
 
 .stats-content {
@@ -58,13 +63,13 @@
   color: var(--text-primary);
   line-height: 1.4;
   font-weight: 500;
+  letter-spacing: -0.2px;
 }
 
 .stats-count {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-weight: 500;
 }
 
 .empty-state {
@@ -72,6 +77,6 @@
   padding: 40px 20px;
   color: var(--text-secondary);
   font-style: italic;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 12px;
+  background: transparent;
+  border-radius: 16px;
 }
