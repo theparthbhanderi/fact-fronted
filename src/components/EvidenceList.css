@@ -24,7 +24,7 @@
   padding: 16px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: 16px;
   text-decoration: none;
   color: inherit;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
@@ -52,8 +52,8 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: var(--radius-sm);
-  background: rgba(0, 122, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(0, 122, 255, 0.1); /* light blue iOS */
   color: var(--accent);
   font-size: 0.9rem;
   font-weight: 600;
