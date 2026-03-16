@@ -99,6 +99,11 @@
   z-index: 5;
 }
 
+.dark .tab-active-pill {
+  background: rgba(99, 99, 102, 0.6); /* iOS standard dark mode elevated Tertiary fill */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4), 0 3px 1px rgba(0, 0, 0, 0.2);
+}
+
 .tab-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
