@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ConfidenceMeter from "./ConfidenceMeter";
 import "./ResultCard.css";
 
@@ -17,7 +17,7 @@ const VERDICT_STYLES = {
   },
 };
 
-export default function ResultCard({ result, headerAction }) {
+export default function ResultCard({ result, headerAction, isTranslating }) {
   // Map backend verdicts to our styles. Assume 'False' maps to 'FALSE', etc.
   const rawVerdict = result.verdict?.toUpperCase() || "UNVERIFIED";
   let v = VERDICT_STYLES[rawVerdict];
@@ -79,7 +79,32 @@ export default function ResultCard({ result, headerAction }) {
       {/* Explanation */}
       <div className="result-section explanation-section">
         <h3 className="section-label">Explanation</h3>
-        <p className="explanation-text">{result.explanation}</p>
+        <AnimatePresence mode="wait">
+          {isTranslating ? (
+            <motion.p
+              key="translating"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="explanation-text"
+              style={{ fontStyle: "italic", opacity: 0.6 }}
+            >
+              Translating...
+            </motion.p>
+          ) : (
+            <motion.p
+              key={result.explanation}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="explanation-text"
+            >
+              {result.explanation}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
