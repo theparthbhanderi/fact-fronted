@@ -1,0 +1,19 @@
+.ecc-root {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  padding: var(--spacing-4);
+}
+
+.dark .ecc-root {
+  background: rgba(28, 28, 30, 0.75);
+}
+
+.ecc-note {
+  margin-top: var(--spacing-1);
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+

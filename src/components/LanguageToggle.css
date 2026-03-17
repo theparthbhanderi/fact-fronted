@@ -1,12 +1,13 @@
 .lang-toggle-container {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.05); /* Same as input backgrounds */
+  height: 32px;
+  background: rgba(118, 118, 128, 0.12);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4px;
-  border-radius: 999px; /* Pill shape */
+  padding: 2px;
+  border-radius: 999px;
   width: max-content;
   position: relative;
 }
@@ -20,15 +21,18 @@ body[data-theme="dark"] .lang-toggle-container {
   position: relative;
   border: none;
   background: transparent;
-  padding: 6px 16px;
+  padding: 0 var(--spacing-3);
+  height: 28px;
   border-radius: 999px;
   cursor: pointer;
   color: var(--text-secondary);
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 13px;
   font-weight: 500;
   transition: color 0.2s ease;
   z-index: 1;
+  display: flex;
+  align-items: center;
 }
 
 .lang-btn:hover:not(.disabled) {

@@ -4,7 +4,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-2);
 }
 
 .stats-item {
@@ -13,14 +13,14 @@
   gap: 16px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
-  transition: transform 0.2s, background-color 0.2s;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-3);
+  transition: transform var(--motion-fast), background-color var(--motion-fast), opacity var(--motion-fast);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
 .stats-item:active {
-  transform: scale(0.98);
+  transform: scale(var(--press-scale));
 }
 
 .stats-item:hover {
@@ -34,7 +34,7 @@
 .stats-rank {
   width: 32px;
   height: 32px;
-  border-radius: 10px; /* iOS squircle-ish */
+  border-radius: var(--radius-sm);
   background: rgba(0, 122, 255, 0.1); /* light blue iOS */
   color: var(--accent);
   display: flex;
@@ -72,9 +72,9 @@
 
 .empty-state {
   text-align: center;
-  padding: 40px 20px;
+  padding: var(--spacing-6) var(--spacing-3);
   color: var(--text-secondary);
   font-style: italic;
   background: transparent;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
 }

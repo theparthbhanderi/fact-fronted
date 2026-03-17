@@ -1,9 +1,13 @@
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Analytics from "./pages/Analytics";
+import History from "./pages/History";
+import Result from "./pages/Result";
+import NewsReader from "./pages/NewsReader";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
-import { HomeIcon, BarChart2, Sun, Moon } from "lucide-react";
+import { HomeIcon, BarChart2, History as HistoryIcon, Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
+import SegmentedControl from "./components/SegmentedControl";
 import "./App.css";
 
 function ThemeToggle() {
@@ -32,6 +36,7 @@ function ThemeToggle() {
 
 function DesktopNavigation() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <nav className="main-nav desktop-only">
@@ -40,10 +45,23 @@ function DesktopNavigation() {
           <h2>AI Fact-Checker</h2>
         </div>
         <div className="nav-right">
-          <div className="nav-links">
-            <Link to="/" className={location.pathname === "/" ? "active" : ""}>Home</Link>
-            <Link to="/analytics" className={location.pathname === "/analytics" ? "active" : ""}>Analytics</Link>
-          </div>
+          <SegmentedControl
+            ariaLabel="Primary navigation"
+            layoutId="seg-nav-active"
+            value={
+              location.pathname.startsWith("/history")
+                ? "/history"
+                : location.pathname.startsWith("/analytics")
+                  ? "/analytics"
+                  : "/"
+            }
+            onChange={(v) => navigate(String(v))}
+            items={[
+              { value: "/", label: "Home" },
+              { value: "/analytics", label: "Analytics" },
+              { value: "/history", label: "History" },
+            ]}
+          />
           <ThemeToggle />
         </div>
       </div>
@@ -58,11 +76,15 @@ function BottomNavigation() {
     <nav className="bottom-nav mobile-only">
       <div className="bottom-nav-container">
         <Link to="/" className={`bottom-tab ${location.pathname === "/" ? "active" : ""}`}>
-          <HomeIcon className="tab-icon" size={24} />
-          <span className="tab-label">Verify</span>
+          <HomeIcon className="tab-icon" size={20} />
+          <span className="tab-label">Home</span>
         </Link>
-        <Link to="/analytics" className={`bottom-tab ${location.pathname === "/analytics" ? "active" : ""}`}>
-          <BarChart2 className="tab-icon" size={24} />
+        <Link to="/analytics" className={`bottom-tab ${location.pathname.startsWith("/analytics") ? "active" : ""}`}>
+          <BarChart2 className="tab-icon" size={20} />
+          <span className="tab-label">Analytics</span>
+        </Link>
+        <Link to="/history" className={`bottom-tab ${location.pathname.startsWith("/history") ? "active" : ""}`}>
+          <HistoryIcon className="tab-icon" size={20} />
           <span className="tab-label">History</span>
         </Link>
       </div>
@@ -90,6 +112,9 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/analytics" element={<Analytics />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/result/:id" element={<Result />} />
+              <Route path="/news" element={<NewsReader />} />
             </Routes>
           </main>
           <BottomNavigation />

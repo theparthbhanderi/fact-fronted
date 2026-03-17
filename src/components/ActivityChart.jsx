@@ -28,9 +28,9 @@ export default function ActivityChart({ data }) {
         <LineChart
           data={formattedData}
           margin={{
-            top: 20,
-            right: 20,
-            left: -20,
+            top: 16,
+            right: 16,
+            left: -16,
             bottom: 0,
           }}
         >
@@ -48,20 +48,20 @@ export default function ActivityChart({ data }) {
           />
           <Tooltip 
             contentStyle={{ 
-              backgroundColor: "var(--card-bg)", 
-              border: "1px solid var(--border-color)",
-              borderRadius: "8px",
+              backgroundColor: "var(--surface)", 
+              border: "1px solid var(--border)",
+              borderRadius: "12px",
               color: "var(--text-primary)"
             }}
-            itemStyle={{ color: "#a78bfa" }}
+            itemStyle={{ color: "#7C7CFF" }}
           />
           <Line
             type="monotone"
             dataKey="Checks"
-            stroke="#a78bfa"
+            stroke="#7C7CFF"
             strokeWidth={3}
-            dot={{ r: 4, fill: "#a78bfa", strokeWidth: 2, stroke: "var(--bg-color)" }}
-            activeDot={{ r: 6, fill: "#818cf8", strokeWidth: 0 }}
+            dot={{ r: 4, fill: "#7C7CFF", strokeWidth: 2, stroke: "var(--bg)" }}
+            activeDot={{ r: 6, fill: "#7C7CFF", strokeWidth: 0 }}
           />
         </LineChart>
       </ResponsiveContainer>

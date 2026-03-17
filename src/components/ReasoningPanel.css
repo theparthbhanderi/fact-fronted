@@ -1,0 +1,258 @@
+.rp-root {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.dark .rp-root {
+  background: rgba(28, 28, 30, 0.75);
+}
+
+.rp-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform var(--motion-fast), background var(--motion-fast);
+}
+
+.rp-toggle:hover {
+  transform: scale(var(--hover-scale));
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.rp-toggle:active {
+  transform: scale(var(--press-scale));
+}
+
+.rp-toggleLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.rp-toggleIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+  color: rgba(67, 56, 202, 0.95);
+}
+
+.dark .rp-toggleIcon {
+  color: rgba(199, 210, 254, 0.95);
+}
+
+.rp-toggleText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  text-align: left;
+}
+
+.rp-toggleTitle {
+  font-weight: 750;
+  letter-spacing: 0.01em;
+}
+
+.rp-toggleSubtitle {
+  font-weight: 550;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rp-toggleRight {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.rp-toggleHint {
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.rp-body {
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-4);
+  border-top: 1px solid rgba(60, 60, 67, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.rp-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing-1);
+}
+
+.rp-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(60, 60, 67, 0.16);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-weight: 650;
+  font-size: 0.85rem;
+  transition: transform var(--motion-fast), background var(--motion-fast);
+}
+
+.dark .rp-copy {
+  background: rgba(28, 28, 30, 0.55);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.rp-copy:hover {
+  transform: scale(var(--hover-scale));
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.rp-copy:active {
+  transform: scale(var(--press-scale));
+}
+
+.rp-step {
+  border-radius: 14px;
+  border: 1px solid rgba(60, 60, 67, 0.12);
+  background: rgba(255, 255, 255, 0.55);
+  padding: var(--spacing-3);
+}
+
+.dark .rp-step {
+  background: rgba(28, 28, 30, 0.45);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.rp-stepHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-1);
+}
+
+.rp-stepMeta {
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.rp-stepTitle {
+  font-weight: 650;
+  margin-bottom: var(--spacing-1);
+}
+
+.rp-claim {
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.rp-empty {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  opacity: 0.9;
+}
+
+.rp-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rp-li {
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
+
+.rp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rp-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(60, 60, 67, 0.14);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.dark .rp-chip {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(28, 28, 30, 0.55);
+}
+
+.rp-more {
+  margin-top: 10px;
+  align-self: flex-start;
+  border: 1px solid rgba(60, 60, 67, 0.16);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--text-primary);
+  border-radius: 999px;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 0.85rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform var(--motion-fast), background var(--motion-fast);
+}
+
+.dark .rp-more {
+  background: rgba(28, 28, 30, 0.5);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.rp-more:hover {
+  transform: scale(var(--hover-scale));
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.rp-more:active {
+  transform: scale(var(--press-scale));
+}
+
+.rp-stepText {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+

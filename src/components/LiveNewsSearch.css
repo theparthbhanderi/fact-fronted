@@ -1,0 +1,149 @@
+.lns-root {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--spacing-6) 0 var(--spacing-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.lns-header .lns-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.lns-subtitle {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.lns-searchRow {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+}
+
+.dark .lns-inputWrap {
+  background: rgba(30, 30, 30, 0.35);
+}
+
+.lns-btn {
+  display: none;
+}
+
+.lns-btn:hover:not(:disabled) {
+  transform: scale(var(--hover-scale));
+  box-shadow: var(--shadow-md);
+}
+
+.lns-btn:active:not(:disabled) {
+  transform: scale(var(--press-scale));
+}
+
+.lns-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lns-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+}
+
+.lns-card {
+  text-align: left;
+  display: grid;
+  grid-template-columns: 92px 1fr auto;
+  gap: var(--spacing-3);
+  align-items: stretch;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-elevated);
+  backdrop-filter: blur(14px);
+  padding: var(--spacing-3);
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+}
+
+.dark .lns-card {
+  background: var(--surface-elevated);
+}
+
+.lns-card:hover {
+  transform: scale(var(--hover-scale));
+  box-shadow: var(--shadow-card-hover);
+}
+
+.lns-card:active {
+  transform: scale(var(--press-scale));
+}
+
+.lns-img {
+  width: 92px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.lns-img--placeholder {
+  display: block;
+}
+
+.lns-cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.lns-cardTitle {
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.15;
+  font-size: 0.98rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lns-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.lns-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lns-cardChevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+@media (max-width: 760px) {
+  .lns-grid {
+    grid-template-columns: 1fr;
+  }
+  .lns-searchRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+

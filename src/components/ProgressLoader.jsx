@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Check, Dot } from "lucide-react";
 import "./ProgressLoader.css";
 
 const DEFAULT_STEPS = [
@@ -29,12 +30,33 @@ export default function ProgressLoader({ customSteps }) {
     return () => clearInterval(interval);
   }, [steps.length]);
 
+  const total = Math.max(1, steps.length);
+  const current = Math.min(currentStepIndex, total - 1);
+  const progress = (current + 1) / total;
+
   return (
     <div className="progress-loader-container">
       <div className="progress-card">
         <div className="progress-header">
-          <div className="spinner-ring small" />
-          <h3>Verifying Fact</h3>
+          <div className="progress-headerLeft">
+            <div className="spinner-ring small" />
+            <div className="progress-headerText">
+              <h3>Verifying</h3>
+              <div className="progress-sub">
+                Step {current + 1} of {total}: {steps[current]}
+              </div>
+            </div>
+          </div>
+          <div className="progress-pct">{Math.round(progress * 100)}%</div>
+        </div>
+
+        <div className="progress-bar" aria-hidden="true">
+          <motion.div
+            className="progress-barFill"
+            initial={false}
+            animate={{ width: `${Math.max(8, Math.round(progress * 100))}%` }}
+            transition={{ type: "spring", stiffness: 260, damping: 30 }}
+          />
         </div>
         
         <div className="steps-list">
@@ -50,24 +72,26 @@ export default function ProgressLoader({ customSteps }) {
               >
                 <div className="step-indicator">
                   {isCompleted ? (
-                    <motion.div 
-                      initial={{ scale: 0 }} 
-                      animate={{ scale: 1 }} 
-                      className="check-icon"
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="step-icon step-icon--done"
                     >
-                      ✓
+                      <Check size={14} />
                     </motion.div>
                   ) : isActive ? (
                     <motion.div 
-                      animate={{ opacity: [0.5, 1, 0.5] }} 
-                      transition={{ repeat: Infinity, duration: 1.5 }}
-                      className="active-dot"
+                      animate={{ opacity: [0.45, 1, 0.45] }} 
+                      transition={{ repeat: Infinity, duration: 1.2 }}
+                      className="step-icon step-icon--active"
                     />
                   ) : (
-                    <div className="pending-dot" />
+                    <div className="step-icon step-icon--pending">
+                      <Dot size={18} />
+                    </div>
                   )}
                 </div>
-                <span className="step-text">{step}...</span>
+                <span className="step-text">{step}</span>
               </div>
             );
           })}

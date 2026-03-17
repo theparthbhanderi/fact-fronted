@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Search } from "lucide-react";
 import { getHistory, searchHistory } from "../services/api";
+import PremiumTextInput from "./PremiumTextInput";
 import "./HistoryPanel.css";
 
 const container = {
@@ -76,13 +78,18 @@ export default function HistoryPanel() {
       <div className="history-header">
         <h2>Recent Fact Checks</h2>
         <form onSubmit={handleSearch} className="history-search">
-          <input
-            type="text"
-            placeholder="Search previous claims..."
+          <PremiumTextInput
+            icon={Search}
+            inline
+            actionIcon={Search}
+            actionType="submit"
+            actionDisabled={loading}
+            actionAriaLabel="Search history"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search previous claims…"
+            ariaLabel="Search previous claims"
           />
-          <button type="submit">Search</button>
         </form>
       </div>
 

@@ -95,3 +95,29 @@ export const getActivityStats = async () => {
   const { data } = await api.get(`/analytics/activity`);
   return data;
 };
+
+// ==========================================
+// Live News Reader Endpoints
+// ==========================================
+
+export const searchNews = async (topic) => {
+  const { data } = await api.get(`/news/search?q=${encodeURIComponent(topic)}`);
+  return data;
+};
+
+export const readNews = async (params) => {
+  if (typeof params === "string") {
+    const { data } = await api.get(`/news/read?url=${encodeURIComponent(params)}`);
+    return data;
+  }
+
+  const qp = new URLSearchParams();
+  qp.set("url", params?.url || "");
+  if (params?.title) qp.set("title", params.title);
+  if (params?.source) qp.set("source", params.source);
+  if (params?.published_at) qp.set("published_at", params.published_at);
+  if (params?.description) qp.set("description", params.description);
+
+  const { data } = await api.get(`/news/read?${qp.toString()}`);
+  return data;
+};

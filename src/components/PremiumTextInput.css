@@ -1,0 +1,141 @@
+.pti-shell {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.pti-shell.is-inline {
+  max-width: none;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.pti-group {
+  height: 56px;
+  border-radius: 999px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease, background-color 150ms ease;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.dark .pti-group {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-subtle);
+}
+
+.pti-group:hover {
+  border-color: rgba(0, 122, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.pti-group:focus-within {
+  border-color: #0A84FF;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+
+.pti-group.is-error {
+  border-color: #FF3B30;
+}
+
+.pti-group.is-error:hover,
+.pti-group.is-error:focus-within {
+  border-color: #FF3B30;
+  box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.18);
+}
+
+.pti-group.is-disabled {
+  opacity: 0.7;
+}
+
+.pti-field {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.pti-icon {
+  opacity: 0.6;
+  flex: 0 0 auto;
+}
+
+.pti-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  min-width: 0;
+}
+
+.pti-input::placeholder {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.dark .pti-input::placeholder {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+.pti-error {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #FF3B30;
+}
+
+.pti-action {
+  width: 84px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(255, 59, 48, 1), rgba(255, 149, 0, 1));
+  transition: transform 150ms ease, filter 150ms ease, opacity 150ms ease;
+}
+
+.pti-action:hover:not(:disabled) {
+  filter: brightness(1.02);
+  transform: scale(1.01);
+}
+
+.pti-action:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.pti-action:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pti-actionText {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .pti-group {
+    height: 52px;
+  }
+  .pti-field {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .pti-action {
+    width: 76px;
+  }
+}
+

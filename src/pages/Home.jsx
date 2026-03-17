@@ -5,12 +5,13 @@ import ImageUpload from "../components/ImageUpload";
 import UrlInput from "../components/UrlInput";
 import ProgressLoader from "../components/ProgressLoader";
 import ClaimResultView from "../components/ClaimResultView";
-import HistoryPanel from "../components/HistoryPanel";
+import LiveNewsSearch from "../components/LiveNewsSearch";
 import { checkFact, checkFactImage, checkFactUrl } from "../services/api";
+import SegmentedControl from "../components/SegmentedControl";
 import "./Home.css";
 
 export default function Home() {
-  const [inputType, setInputType] = useState("text"); // 'text', 'image', or 'url'
+  const [inputType, setInputType] = useState("text"); // 'text', 'image', 'url', or 'news'
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -73,14 +74,6 @@ export default function Home() {
     }
   };
 
-  // Helper to get active tab pill offset
-  const getPillOffset = () => {
-    if (inputType === "text") return "2px";
-    if (inputType === "image") return "calc(33.33% + 2px)";
-    if (inputType === "url") return "calc(66.66% - 2px)";
-    return "2px";
-  };
-
   return (
     <div className="home">
       {/* Hero */}
@@ -94,21 +87,23 @@ export default function Home() {
 
       {/* Input */}
       <section className="input-section">
-        <div className="input-tabs triple">
-          {["text", "image", "url"].map((type) => (
-            <button
-              key={type}
-              className={`tab-btn triple-tab ${inputType === type ? "active" : ""}`}
-              onClick={() => { setInputType(type); setResult(null); setError(""); }}
-              disabled={loading}
-            >
-              {type === "text" ? "Enter Claim" : type === "image" ? "Screenshot" : "Article Link"}
-            </button>
-          ))}
-          <motion.div
-            className="tab-active-pill triple-pill"
-            animate={{ left: getPillOffset() }}
-            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+        <div className="mode-segment">
+          <SegmentedControl
+            ariaLabel="Fact-checker mode selector"
+            layoutId="seg-mode-active"
+            value={inputType}
+            onChange={(v) => {
+              setInputType(String(v));
+              setResult(null);
+              setError("");
+            }}
+            disabled={loading}
+            items={[
+              { value: "text", label: "Enter Claim" },
+              { value: "image", label: "Screenshot" },
+              { value: "url", label: "Article Link" },
+              { value: "news", label: "Live News" },
+            ]}
           />
         </div>
 
@@ -129,6 +124,7 @@ export default function Home() {
             {inputType === "url" && (
               <UrlInput onSubmit={handleUrlSubmit} loading={loading} />
             )}
+            {inputType === "news" && <LiveNewsSearch />}
           </motion.div>
         </AnimatePresence>
       </section>
@@ -161,10 +157,16 @@ export default function Home() {
               </div>
             </div>
 
-            <h3 className="claims-list-title">Fact-Check Breakdown</h3>
+            <div className="claims-header">
+              <h3 className="claims-list-title">Fact-Check Breakdown</h3>
+              <span className="claims-count">{result.claims.length} claims</span>
+            </div>
             <div className="claims-list">
               {result.claims.map((claimResult, i) => (
                 <div key={i} className="claim-breakdown-wrapper">
+                  <div className="claim-breakdown-meta">
+                    <span className="claim-index">Claim {i + 1}</span>
+                  </div>
                    <div className="results-grid claim-row-grid">
                       <ClaimResultView result={claimResult} evidenceLoading={false} />
                    </div>
@@ -175,13 +177,10 @@ export default function Home() {
         )}
       </section>
 
-      {/* History section */}
-      <HistoryPanel />
-
       {/* Footer */}
       <footer className="footer">
         <p>
-          Built with NewsAPI · Sentence-Transformers · FAISS · LLM
+          Built with NewsAPI and ❤️
         </p>
       </footer>
     </div>

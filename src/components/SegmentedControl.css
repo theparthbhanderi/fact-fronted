@@ -1,0 +1,96 @@
+.sc-root {
+  height: 44px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.dark .sc-root,
+body[data-theme="dark"] .sc-root {
+  background: rgba(118, 118, 128, 0.24);
+}
+
+.sc-seg {
+  position: relative;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.65);
+  cursor: pointer;
+  transition: all 150ms ease;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.dark .sc-seg,
+body[data-theme="dark"] .sc-seg {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.sc-seg:hover:not(:disabled):not(.sc-active) {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.dark .sc-seg:hover:not(:disabled):not(.sc-active),
+body[data-theme="dark"] .sc-seg:hover:not(:disabled):not(.sc-active) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sc-seg:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sc-active {
+  color: rgba(0, 0, 0, 0.95);
+}
+
+.dark .sc-active,
+body[data-theme="dark"] .sc-active {
+  color: rgba(0, 0, 0, 0.95);
+}
+
+.sc-activeBg {
+  position: absolute;
+  inset: 0;
+  background: white;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  z-index: -1;
+}
+
+.sc-label {
+  position: relative;
+  z-index: 2;
+}
+
+.sc-disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Responsive: allow horizontal scroll below 768px */
+@media (max-width: 768px) {
+  .sc-root {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .sc-root::-webkit-scrollbar {
+    display: none;
+  }
+}
+

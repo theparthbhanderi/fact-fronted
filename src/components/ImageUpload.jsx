@@ -73,7 +73,7 @@ export default function ImageUpload({ onSubmit, loading }) {
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <div className="upload-icon-wrapper">
-                <UploadCloud size={40} className="upload-icon" />
+                <UploadCloud size={48} className="upload-icon" />
               </div>
               <h3 className="upload-title">Upload Screenshot</h3>
               <p className="upload-subtitle">Drag & drop an image or click to browse</p>

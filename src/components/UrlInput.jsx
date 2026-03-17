@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link2 } from "lucide-react";
+import { ArrowRight, Link2 } from "lucide-react";
+import PremiumTextInput from "./PremiumTextInput";
 import "./UrlInput.css";
 
 export default function UrlInput({ onSubmit, loading }) {
@@ -14,27 +15,24 @@ export default function UrlInput({ onSubmit, loading }) {
   return (
     <div className="url-input-wrapper">
       <form onSubmit={handleSubmit} className="url-input-form">
-        <div className="url-input-container">
-          <Link2 className="url-icon" size={20} />
-          <input
+        <div className="url-row">
+          <PremiumTextInput
+            icon={Link2}
+            inline
+            actionIcon={ArrowRight}
+            actionType="submit"
+            actionDisabled={!url.trim() || loading}
+            actionAriaLabel="Verify article"
             type="url"
-            className="url-input"
-            placeholder="Paste news article link here..."
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            placeholder="Paste a news article URL…"
             disabled={loading}
-            autoComplete="off"
             required
             pattern="https?://.+"
             title="Please enter a valid URL starting with http:// or https://"
+            ariaLabel="Paste article link"
           />
-          <button 
-            type="submit" 
-            className="url-submit-btn" 
-            disabled={!url.trim() || loading}
-          >
-            Verify Article
-          </button>
         </div>
       </form>
     </div>

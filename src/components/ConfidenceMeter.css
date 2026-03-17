@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-2); /* 8px label-bar gap */
 }
 
 .meter-label {
@@ -27,7 +27,7 @@
 
 .meter-track {
   width: 100%;
-  height: 10px;
+  height: 8px;
   background: rgba(118, 118, 128, 0.12); /* iOS standard progress track */
   border-radius: 999px; /* Pill shape */
   overflow: hidden;
