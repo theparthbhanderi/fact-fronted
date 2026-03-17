@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ClaimInput from "../components/ClaimInput";
 import ImageUpload from "../components/ImageUpload";
 import UrlInput from "../components/UrlInput";
-import LoadingSpinner from "../components/LoadingSpinner";
+import ProgressLoader from "../components/ProgressLoader";
 import ClaimResultView from "../components/ClaimResultView";
 import HistoryPanel from "../components/HistoryPanel";
 import { checkFact, checkFactImage, checkFactUrl } from "../services/api";
@@ -13,12 +13,10 @@ export default function Home() {
   const [inputType, setInputType] = useState("text"); // 'text', 'image', or 'url'
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState("Analyzing claim...");
   const [error, setError] = useState("");
 
   const handleTextSubmit = async (claim) => {
     setLoading(true);
-    setLoadingText("Analyzing claim...");
     setResult(null);
     setError("");
 
@@ -38,24 +36,8 @@ export default function Home() {
 
   const handleImageSubmit = async (file) => {
     setLoading(true);
-    setLoadingText("Extracting text and analyzing...");
     setResult(null);
     setError("");
-
-    // Simulate progress through the stages for better UX during OCR/LLM waits
-    const stages = [
-      { text: "Reading image...", delay: 0 },
-      { text: "Extracting text...", delay: 1500 },
-      { text: "Analyzing claim...", delay: 4000 },
-      { text: "Checking sources...", delay: 7000 },
-      { text: "Finalizing verdict...", delay: 11000 }
-    ];
-
-    const timeouts = stages.map(stage => 
-      setTimeout(() => {
-        setLoadingText(stage.text);
-      }, stage.delay)
-    );
 
     try {
       const data = await checkFactImage(file);
@@ -67,30 +49,14 @@ export default function Home() {
         "Unable to process image. Please try again.";
       setError(msg);
     } finally {
-      // Clear all timeouts if it finishes early or errors
-      timeouts.forEach(clearTimeout);
       setLoading(false);
     }
   };
   
   const handleUrlSubmit = async (url) => {
     setLoading(true);
-    setLoadingText("Fetching article...");
     setResult(null);
     setError("");
-
-    const stages = [
-      { text: "Fetching article...", delay: 0 },
-      { text: "Extracting claims...", delay: 3000 },
-      { text: "Verifying sources...", delay: 7000 },
-      { text: "Generating verdicts...", delay: 12000 }
-    ];
-
-    const timeouts = stages.map(stage => 
-      setTimeout(() => {
-        setLoadingText(stage.text);
-      }, stage.delay)
-    );
 
     try {
       const data = await checkFactUrl(url);
@@ -103,7 +69,6 @@ export default function Home() {
         "Failed to analyze URL. Please try again.";
       setError(msg);
     } finally {
-      timeouts.forEach(clearTimeout);
       setLoading(false);
     }
   };
@@ -170,7 +135,7 @@ export default function Home() {
 
       {/* Results area */}
       <section className="results-section">
-        {loading && <LoadingSpinner text={loadingText} />}
+        {loading && <ProgressLoader />}
 
         {error && (
           <div className="error-card">
