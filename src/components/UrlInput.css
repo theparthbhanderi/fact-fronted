@@ -1,0 +1,108 @@
+.url-input-wrapper {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.url-input-container {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 8px 8px 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .url-input-container {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.url-input-container:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(0, 122, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.dark .url-input-container:focus-within {
+  box-shadow: 0 4px 20px rgba(10, 132, 255, 0.2);
+}
+
+.url-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.url-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  outline: none;
+  min-width: 0;
+}
+
+.url-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.url-submit-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--accent) 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.dark .url-submit-btn {
+  background: linear-gradient(135deg, var(--accent) 0%, #0066cc 100%);
+}
+
+.url-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 122, 255, 0.4);
+}
+
+.url-submit-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.url-submit-btn:disabled {
+  background: rgba(118, 118, 128, 0.2);
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+  .url-input-container {
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 24px;
+    gap: 16px;
+  }
+  
+  .url-icon {
+    display: none;
+  }
+  
+  .url-input {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .url-submit-btn {
+    width: 100%;
+    padding: 14px;
+  }
+}

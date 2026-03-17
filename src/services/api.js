@@ -32,6 +32,32 @@ export const checkFactImage = async (imageFile) => {
 };
 
 /**
+ * Submit a URL for article text extraction and fact-checking.
+ * @param {string} url - The article URL.
+ * @returns {Promise<object>} Multiple fact-check results based on the article's claims.
+ */
+export const checkFactUrl = async (url) => {
+  const { data } = await api.post("/fact-check-url", { url }, {
+    headers: { "Content-Type": "application/json" },
+  });
+  return data;
+};
+
+/**
+ * Translate a fact check result payload into the target language.
+ * @param {object} result - The fact check result object.
+ * @param {string} targetLang - The target language code (en, hi, gu).
+ * @returns {Promise<object>} Translated fact check result.
+ */
+export const translateResult = async (result, targetLang) => {
+  const { data } = await api.post("/translate", {
+    target_language: targetLang,
+    result_data: result,
+  });
+  return data;
+};
+
+/**
  * Fetch recent fact check history.
  * @param {number} limit 
  * @returns {Promise<Array>} Array of fact check records.

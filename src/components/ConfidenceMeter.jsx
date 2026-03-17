@@ -1,25 +1,24 @@
+import { useEffect, useState } from "react";
 import "./ConfidenceMeter.css";
 
-const COLORS = {
-  high: "#22c55e",
-  medium: "#f59e0b",
-  low: "#ef4444",
-};
-
-function getColor(value) {
-  if (value >= 0.75) return COLORS.high;
-  if (value >= 0.5) return COLORS.medium;
-  return COLORS.low;
-}
-
-export default function ConfidenceMeter({ value, breakdown }) {
+// Use the color passed from the ResultCard verdict for consistency
+export default function ConfidenceMeter({ value, color }) {
   const pct = Math.round(value * 100);
-  const color = getColor(value);
+  const [fillWidth, setFillWidth] = useState(0);
+
+  // Animate the fill on mount
+  useEffect(() => {
+    // Small timeout to ensure the animation triggers after initial render
+    const timer = setTimeout(() => {
+      setFillWidth(pct);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [pct]);
 
   return (
     <div className="confidence-meter">
       <div className="meter-header">
-        <span className="meter-label">Confidence</span>
+        <span className="meter-label">Confidence Score</span>
         <span className="meter-value" style={{ color }}>
           {pct}%
         </span>
@@ -28,26 +27,9 @@ export default function ConfidenceMeter({ value, breakdown }) {
       <div className="meter-track">
         <div
           className="meter-fill"
-          style={{ width: `${pct}%`, background: color }}
+          style={{ width: `${fillWidth}%`, background: color }}
         />
       </div>
-
-      {breakdown && (
-        <div className="meter-breakdown">
-          <div className="breakdown-item">
-            <span>🤖 LLM</span>
-            <span>{Math.round(breakdown.llm_confidence * 100)}%</span>
-          </div>
-          <div className="breakdown-item">
-            <span>🔍 Similarity</span>
-            <span>{Math.round(breakdown.avg_similarity * 100)}%</span>
-          </div>
-          <div className="breakdown-item">
-            <span>📰 Source Trust</span>
-            <span>{Math.round(breakdown.avg_source_score * 100)}%</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

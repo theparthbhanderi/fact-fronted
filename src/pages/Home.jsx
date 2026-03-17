@@ -2,15 +2,15 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ClaimInput from "../components/ClaimInput";
 import ImageUpload from "../components/ImageUpload";
+import UrlInput from "../components/UrlInput";
 import LoadingSpinner from "../components/LoadingSpinner";
-import ResultCard from "../components/ResultCard";
-import EvidenceList from "../components/EvidenceList";
+import ClaimResultView from "../components/ClaimResultView";
 import HistoryPanel from "../components/HistoryPanel";
-import { checkFact, checkFactImage } from "../services/api";
+import { checkFact, checkFactImage, checkFactUrl } from "../services/api";
 import "./Home.css";
 
 export default function Home() {
-  const [inputType, setInputType] = useState("text"); // 'text' or 'image'
+  const [inputType, setInputType] = useState("text"); // 'text', 'image', or 'url'
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Analyzing claim...");
@@ -25,6 +25,7 @@ export default function Home() {
     try {
       const data = await checkFact(claim);
       setResult(data);
+      window.dispatchEvent(new Event("historyUpdated"));
     } catch (err) {
       const msg =
         err?.response?.data?.detail ||
@@ -41,17 +42,78 @@ export default function Home() {
     setResult(null);
     setError("");
 
+    // Simulate progress through the stages for better UX during OCR/LLM waits
+    const stages = [
+      { text: "Reading image...", delay: 0 },
+      { text: "Extracting text...", delay: 1500 },
+      { text: "Analyzing claim...", delay: 4000 },
+      { text: "Checking sources...", delay: 7000 },
+      { text: "Finalizing verdict...", delay: 11000 }
+    ];
+
+    const timeouts = stages.map(stage => 
+      setTimeout(() => {
+        setLoadingText(stage.text);
+      }, stage.delay)
+    );
+
     try {
       const data = await checkFactImage(file);
       setResult(data);
+      window.dispatchEvent(new Event("historyUpdated"));
     } catch (err) {
       const msg =
         err?.response?.data?.detail ||
         "Unable to process image. Please try again.";
       setError(msg);
     } finally {
+      // Clear all timeouts if it finishes early or errors
+      timeouts.forEach(clearTimeout);
       setLoading(false);
     }
+  };
+  
+  const handleUrlSubmit = async (url) => {
+    setLoading(true);
+    setLoadingText("Fetching article...");
+    setResult(null);
+    setError("");
+
+    const stages = [
+      { text: "Fetching article...", delay: 0 },
+      { text: "Extracting claims...", delay: 3000 },
+      { text: "Verifying sources...", delay: 7000 },
+      { text: "Generating verdicts...", delay: 12000 }
+    ];
+
+    const timeouts = stages.map(stage => 
+      setTimeout(() => {
+        setLoadingText(stage.text);
+      }, stage.delay)
+    );
+
+    try {
+      const data = await checkFactUrl(url);
+      setResult(data);
+      window.dispatchEvent(new Event("historyUpdated"));
+    } catch (err) {
+      console.error(err);
+      const msg =
+        err?.response?.data?.detail ||
+        "Failed to analyze URL. Please try again.";
+      setError(msg);
+    } finally {
+      timeouts.forEach(clearTimeout);
+      setLoading(false);
+    }
+  };
+
+  // Helper to get active tab pill offset
+  const getPillOffset = () => {
+    if (inputType === "text") return "2px";
+    if (inputType === "image") return "calc(33.33% + 2px)";
+    if (inputType === "url") return "calc(66.66% - 2px)";
+    return "2px";
   };
 
   return (
@@ -67,20 +129,20 @@ export default function Home() {
 
       {/* Input */}
       <section className="input-section">
-        <div className="input-tabs">
-          {["text", "image"].map((type) => (
+        <div className="input-tabs triple">
+          {["text", "image", "url"].map((type) => (
             <button
               key={type}
-              className={`tab-btn ${inputType === type ? "active" : ""}`}
-              onClick={() => setInputType(type)}
+              className={`tab-btn triple-tab ${inputType === type ? "active" : ""}`}
+              onClick={() => { setInputType(type); setResult(null); setError(""); }}
               disabled={loading}
             >
-              {type === "text" ? "Enter Claim" : "Upload Screenshot"}
+              {type === "text" ? "Enter Claim" : type === "image" ? "Screenshot" : "Article Link"}
             </button>
           ))}
           <motion.div
-            className="tab-active-pill"
-            animate={{ left: inputType === "text" ? "2px" : "calc(50%)" }}
+            className="tab-active-pill triple-pill"
+            animate={{ left: getPillOffset() }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
           />
         </div>
@@ -93,10 +155,14 @@ export default function Home() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            {inputType === "text" ? (
+            {inputType === "text" && (
               <ClaimInput onSubmit={handleTextSubmit} loading={loading} />
-            ) : (
+            )}
+            {inputType === "image" && (
               <ImageUpload onSubmit={handleImageSubmit} loading={loading} />
+            )}
+            {inputType === "url" && (
+              <UrlInput onSubmit={handleUrlSubmit} loading={loading} />
             )}
           </motion.div>
         </AnimatePresence>
@@ -113,10 +179,33 @@ export default function Home() {
           </div>
         )}
 
-        {result && (
-          <div className="results-grid">
-            <ResultCard result={result} />
-            <EvidenceList evidence={result.evidence} />
+        {(result || loading) && !result?.claims && (
+          <div className="results-grid single-claim">
+            {result && <ClaimResultView result={result} evidenceLoading={loading} />}
+            {!result && loading && <ClaimResultView result={{}} evidenceLoading={true} />}
+          </div>
+        )}
+
+        {result?.claims && (
+          <div className="multi-claim-container">
+            <div className="article-header-card">
+              <h2 className="article-title">{result.article_title}</h2>
+              <p className="article-source">Source: <a href={result.source_url} target="_blank" rel="noreferrer">{result.source_url}</a></p>
+              <div className="article-stats">
+                <span className="stat-badge">Extracted {result.claims.length} Claims</span>
+              </div>
+            </div>
+
+            <h3 className="claims-list-title">Fact-Check Breakdown</h3>
+            <div className="claims-list">
+              {result.claims.map((claimResult, i) => (
+                <div key={i} className="claim-breakdown-wrapper">
+                   <div className="results-grid claim-row-grid">
+                      <ClaimResultView result={claimResult} evidenceLoading={false} />
+                   </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </section>

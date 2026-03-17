@@ -1,28 +1,24 @@
 .confidence-meter {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px 24px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+  width: 100%;
 }
 
 .meter-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .meter-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
 }
 
 .meter-value {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
@@ -31,9 +27,9 @@
 
 .meter-track {
   width: 100%;
-  height: 8px;
+  height: 10px;
   background: rgba(118, 118, 128, 0.12); /* iOS standard progress track */
-  border-radius: 4px;
+  border-radius: 999px; /* Pill shape */
   overflow: hidden;
 }
 
@@ -43,43 +39,8 @@
 
 .meter-fill {
   height: 100%;
-  border-radius: 4px;
-  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); /* iOS snappy ease */
-  background: var(--accent); /* Default fill */
-}
-
-.meter-breakdown {
-  display: flex;
-  gap: 16px;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 0.5px solid var(--border);
-}
-
-.breakdown-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* iOS prefers left alignment for stats sometimes, but let's test */
-  gap: 4px;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-.breakdown-item span:last-child {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 0.95rem;
-}
-
-@media (max-width: 500px) {
-  .meter-breakdown {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .breakdown-item {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+  border-radius: 999px;
+  /* Smooth animation from 0 -> score over 600ms ease-out */
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--accent); /* Default fill, overridden inline */
 }
