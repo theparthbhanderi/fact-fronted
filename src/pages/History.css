@@ -102,6 +102,27 @@
 }
 
 .history-item {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .history-page {
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .history-searchbar {
+    max-width: none;
+  }
+  .history-searchInput {
+    width: 100%;
+  }
+  .history-item {
+    padding: 18px;
+  }
+}
+.history-item {
   text-align: left;
   border: none;
   cursor: pointer;

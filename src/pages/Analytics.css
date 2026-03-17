@@ -176,6 +176,18 @@
   .analytics-metrics {
     grid-template-columns: repeat(2, 1fr);
   }
+  .analytics-page {
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .analytics-card {
+    padding: 18px;
+  }
+  .metric-card {
+    padding: 18px;
+  }
 }
 
 @media (max-width: 520px) {

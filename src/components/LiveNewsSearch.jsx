@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { ExternalLink, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { searchNews } from "../services/api";
@@ -9,7 +9,14 @@ function formatDate(s) {
   if (!s) return "";
   const d = new Date(s);
   if (Number.isNaN(d.getTime())) return s;
-  return d.toLocaleString();
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function sourceBadgeTone(source) {
+  const s = String(source || "").toLowerCase();
+  if (s.includes("reuters") || s.includes("ap") || s.includes("associated press")) return "neutral";
+  if (s.includes("bbc") || s.includes("ndtv") || s.includes("cnn") || s.includes("the guardian")) return "blue";
+  return "blue";
 }
 
 export default function LiveNewsSearch() {
@@ -78,25 +85,27 @@ export default function LiveNewsSearch() {
               navigate(`/news?${qp.toString()}`);
             }}
           >
-            {a.image ? (
-              <img className="lns-img" src={a.image} alt="" loading="lazy" />
-            ) : (
-              <div className="lns-img lns-img--placeholder" />
-            )}
             <div className="lns-cardBody">
-              <div className="lns-cardTitle">{a.title}</div>
-              <div className="lns-meta">
-                <span className="lns-source">{a.source || "News"}</span>
-                {a.published_at ? (
-                  <span className="lns-date">{formatDate(a.published_at)}</span>
-                ) : null}
+              <div className="lns-cardTitle">{a.title || "Untitled"}</div>
+
+              <div className="lns-metaRow">
+                <div className="lns-sourceWrap">
+                  <span className="lns-source">{a.source || "News"}</span>
+                  <span className={`lns-badge lns-badge--${sourceBadgeTone(a.source)}`}>
+                    {String(a.source || "News").slice(0, 10)}
+                  </span>
+                </div>
+                {a.published_at ? <span className="lns-date">{formatDate(a.published_at)}</span> : <span />}
               </div>
-              {a.description ? (
-                <div className="lns-desc">{a.description}</div>
-              ) : null}
-            </div>
-            <div className="lns-cardChevron">
-              <ExternalLink size={16} />
+
+              {a.description ? <div className="lns-desc">{a.description}</div> : null}
+
+              <div className="lns-footer">
+                <span className="lns-action">Read summary</span>
+                <span className="lns-ext" aria-hidden="true">
+                  <ExternalLink size={16} />
+                </span>
+              </div>
             </div>
           </button>
         ))}

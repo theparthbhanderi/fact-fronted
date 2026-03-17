@@ -13,10 +13,13 @@
     display: none !important;
   }
   .nav-container {
-    padding: 0 var(--spacing-4);
+    padding: 0 12px;
   }
   .main-content {
-    padding: var(--spacing-6) var(--spacing-4);
+    padding: 24px 12px;
+  }
+  .app-container.pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
 

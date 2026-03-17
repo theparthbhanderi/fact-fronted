@@ -11,6 +11,11 @@
   overflow-x: hidden;
 }
 
+.sc-root.sc-full {
+  width: 100%;
+  justify-content: space-between;
+}
+
 .dark .sc-root,
 body[data-theme="dark"] .sc-root {
   background: rgba(118, 118, 128, 0.24);

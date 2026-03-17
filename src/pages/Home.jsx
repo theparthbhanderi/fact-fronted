@@ -91,6 +91,7 @@ export default function Home() {
           <SegmentedControl
             ariaLabel="Fact-checker mode selector"
             layoutId="seg-mode-active"
+            className="sc-full"
             value={inputType}
             onChange={(v) => {
               setInputType(String(v));

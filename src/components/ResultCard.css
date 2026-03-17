@@ -103,7 +103,7 @@
 
 @media (max-width: 768px) {
   .result-card {
-    padding: var(--spacing-5);
+    padding: 18px;
   }
   .claim-text {
     font-size: 1.15rem;
