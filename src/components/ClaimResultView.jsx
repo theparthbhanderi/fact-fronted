@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ResultCard from "./ResultCard";
 import EvidenceList from "./EvidenceList";
@@ -13,13 +13,21 @@ import "./ClaimResultView.css";
  * a local translation cache.
  */
 export default function ClaimResultView({ result, evidenceLoading }) {
-  // Original english response
+  // Original english response cache
   const [translations, setTranslations] = useState({
     en: result,
   });
   
   const [activeLang, setActiveLang] = useState("en");
   const [translating, setTranslating] = useState(false);
+
+  useEffect(() => {
+    // If a new 'result' comes in from the parent (e.g. user searched a new claim),
+    // we must update our translation cache's 'en' base and reset active language
+    // to prevent showing old stale results.
+    setTranslations({ en: result });
+    setActiveLang("en");
+  }, [result]);
 
   const handleLanguageChange = async (langCode) => {
     if (langCode === activeLang) return;
