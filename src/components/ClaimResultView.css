@@ -34,5 +34,10 @@
 @media (max-width: 900px) {
   .viz-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .claim-result-view {
+    gap: 1rem;
   }
 }
