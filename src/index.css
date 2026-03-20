@@ -187,7 +187,16 @@ body {
     max-width: none;
   }
 
-  /* Remove inner max-width centering that makes mobile feel narrow */
+  /* Force everything to be full width on mobile to avoid "narrow" column */
+  #root,
+  .app-container,
+  .main-content,
+  .home,
+  .results-section,
+  .results-wrapper,
+  .results-grid,
+  .multi-claim-container,
+  .claim-result-view,
   .claim-input,
   .pti-shell,
   .url-input-container,
@@ -197,10 +206,19 @@ body {
   .analytics-page,
   .history-page,
   .result-page {
-    max-width: none !important;
+    max-width: 100% !important;
     width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    align-items: stretch !important;
+  }
+
+  .results-wrapper,
+  .home {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
   }
 }
 
