@@ -1,7 +1,17 @@
 import axios from "axios";
 
+const getBaseURL = () => {
+  const envURL = import.meta.env.VITE_API_BASE_URL;
+  if (!envURL) return "/api";
+  
+  // If the user provided a full URL but forgot the /api suffix, add it.
+  // This handles the case where VITE_API_BASE_URL is "https://backend.com" 
+  // but routes are at "https://backend.com/api/..."
+  return envURL.endsWith("/api") ? envURL : `${envURL.replace(/\/$/, "")}/api`;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "/api",
+  baseURL: getBaseURL(),
   timeout: 120000, // 2 min — LLM can be slow on free tier
   headers: { "Content-Type": "application/json" },
 });
