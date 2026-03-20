@@ -16,6 +16,31 @@
   justify-content: space-between;
 }
 
+/* Mode tabs: responsive iOS-like layout (layout only) */
+.sc-root.sc-tabs {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* prevent desktop scrollbar/artefacts */
+  scrollbar-width: none;
+}
+
+.sc-root.sc-tabs .sc-seg {
+  flex: 1;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.sc-root.sc-tabs::-webkit-scrollbar {
+  display: none;
+}
+
 .dark .sc-root,
 body[data-theme="dark"] .sc-root {
   background: rgba(118, 118, 128, 0.24);
@@ -95,6 +120,39 @@ body[data-theme="dark"] .sc-active {
     scrollbar-width: none;
   }
   .sc-root::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .sc-root.sc-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+  .sc-root.sc-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .sc-root.sc-tabs .sc-seg {
+    min-width: 110px;
+  }
+}
+
+/* Language switcher: never clip on mobile */
+.language-switcher {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .language-switcher {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .language-switcher::-webkit-scrollbar {
     display: none;
   }
 }

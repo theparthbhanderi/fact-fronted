@@ -61,6 +61,10 @@
   padding-bottom: 48px;
 }
 
+.hero-section {
+  width: 100%;
+}
+
 .mode-segment {
   display: flex;
   justify-content: center;
@@ -268,6 +272,22 @@
   .input-section,
   .results-section {
     max-width: 100%;
+  }
+
+  /* Compact hero zone; full-width results zone */
+  .hero-section {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .results-section {
+    width: 100%;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .hero-title {

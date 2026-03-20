@@ -87,95 +87,99 @@ export default function Home() {
 
       {/* Input */}
       <section className="input-section">
-        <div className="mode-segment">
-          <SegmentedControl
-            ariaLabel="Fact-checker mode selector"
-            layoutId="seg-mode-active"
-            className="sc-full"
-            value={inputType}
-            onChange={(v) => {
-              setInputType(String(v));
-              setResult(null);
-              setError("");
-            }}
-            disabled={loading}
-            items={[
-              { value: "text", label: "Enter Claim" },
-              { value: "image", label: "Screenshot" },
-              { value: "url", label: "Article Link" },
-              { value: "news", label: "Live News" },
-            ]}
-          />
-        </div>
+        <div className="hero-section">
+          <div className="mode-segment">
+            <SegmentedControl
+              ariaLabel="Fact-checker mode selector"
+              layoutId="seg-mode-active"
+              className="sc-tabs"
+              value={inputType}
+              onChange={(v) => {
+                setInputType(String(v));
+                setResult(null);
+                setError("");
+              }}
+              disabled={loading}
+              items={[
+                { value: "text", label: "Enter Claim" },
+                { value: "image", label: "Screenshot" },
+                { value: "url", label: "Article Link" },
+                { value: "news", label: "Live News" },
+              ]}
+            />
+          </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={inputType}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            {inputType === "text" && (
-              <ClaimInput onSubmit={handleTextSubmit} loading={loading} />
-            )}
-            {inputType === "image" && (
-              <ImageUpload onSubmit={handleImageSubmit} loading={loading} />
-            )}
-            {inputType === "url" && (
-              <UrlInput onSubmit={handleUrlSubmit} loading={loading} />
-            )}
-            {inputType === "news" && <LiveNewsSearch />}
-          </motion.div>
-        </AnimatePresence>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={inputType}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              {inputType === "text" && (
+                <ClaimInput onSubmit={handleTextSubmit} loading={loading} />
+              )}
+              {inputType === "image" && (
+                <ImageUpload onSubmit={handleImageSubmit} loading={loading} />
+              )}
+              {inputType === "url" && (
+                <UrlInput onSubmit={handleUrlSubmit} loading={loading} />
+              )}
+              {inputType === "news" && <LiveNewsSearch />}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </section>
 
       {/* Results area */}
       <section className="results-section">
-        {loading && <ProgressLoader />}
+        <div className="results-wrapper">
+          {loading && <ProgressLoader />}
 
-        {error && (
-          <div className="error-card">
-            <span className="error-icon">⚠️</span>
-            <p>{error}</p>
-          </div>
-        )}
+          {error && (
+            <div className="error-card">
+              <span className="error-icon">⚠️</span>
+              <p>{error}</p>
+            </div>
+          )}
 
-        {(result || loading) && !result?.claims && (
-          <div className="results-grid single-claim">
-            {result && <ClaimResultView result={result} evidenceLoading={loading} />}
-            {!result && loading && <ClaimResultView result={{}} evidenceLoading={true} />}
-          </div>
-        )}
+          {(result || loading) && !result?.claims && (
+            <div className="results-grid single-claim">
+              {result && <ClaimResultView result={result} evidenceLoading={loading} />}
+              {!result && loading && <ClaimResultView result={{}} evidenceLoading={true} />}
+            </div>
+          )}
 
-        {result?.claims && (
-          <div className="multi-claim-container">
-            <div className="article-header-card">
-              <h2 className="article-title">{result.article_title}</h2>
-              <p className="article-source">Source: <a href={result.source_url} target="_blank" rel="noreferrer">{result.source_url}</a></p>
-              <div className="article-stats">
-                <span className="stat-badge">Extracted {result.claims.length} Claims</span>
+          {result?.claims && (
+            <div className="multi-claim-container">
+              <div className="article-header-card">
+                <h2 className="article-title">{result.article_title}</h2>
+                <p className="article-source">Source: <a href={result.source_url} target="_blank" rel="noreferrer">{result.source_url}</a></p>
+                <div className="article-stats">
+                  <span className="stat-badge">Extracted {result.claims.length} Claims</span>
+                </div>
+              </div>
+
+              <div className="claims-header">
+                <h3 className="claims-list-title">Fact-Check Breakdown</h3>
+                <span className="claims-count">{result.claims.length} claims</span>
+              </div>
+              <div className="claims-list">
+                {result.claims.map((claimResult, i) => (
+                  <div key={i} className="claim-breakdown-wrapper">
+                    <div className="claim-breakdown-meta">
+                      <span className="claim-index">Claim {i + 1}</span>
+                    </div>
+                     <div className="results-grid claim-row-grid">
+                        <ClaimResultView result={claimResult} evidenceLoading={false} />
+                     </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            <div className="claims-header">
-              <h3 className="claims-list-title">Fact-Check Breakdown</h3>
-              <span className="claims-count">{result.claims.length} claims</span>
-            </div>
-            <div className="claims-list">
-              {result.claims.map((claimResult, i) => (
-                <div key={i} className="claim-breakdown-wrapper">
-                  <div className="claim-breakdown-meta">
-                    <span className="claim-index">Claim {i + 1}</span>
-                  </div>
-                   <div className="results-grid claim-row-grid">
-                      <ClaimResultView result={claimResult} evidenceLoading={false} />
-                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </section>
 
       {/* Footer */}

@@ -134,6 +134,68 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Mobile full-width overrides (layout only) */
+@media (max-width: 768px) {
+  .container,
+  .main-container,
+  .content-wrapper,
+  .page-wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .card,
+  .result-card,
+  .fact-card,
+  .evidence-card,
+  .history-card,
+  .analytics-card,
+  .metric-card,
+  .nr-card,
+  .progress-card,
+  .lns-card,
+  .article-header-card,
+  .error-card {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 14px;
+    max-width: none;
+  }
+
+  .search-container,
+  .history-searchbar,
+  .lns-searchRow,
+  .input-section,
+  .results-section,
+  .multi-claim-container,
+  .claim-result-view {
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Remove inner max-width centering that makes mobile feel narrow */
+  .claim-input,
+  .pti-shell,
+  .url-input-container,
+  .image-upload-wrapper,
+  .lns-root,
+  .nr-root,
+  .analytics-page,
+  .history-page,
+  .result-page {
+    max-width: none !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
 #root {
   min-height: 100vh;
 }
