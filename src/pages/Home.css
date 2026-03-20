@@ -81,6 +81,13 @@
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 48px;
+  min-height: 220px; /* Stabilize height during tab switches */
+}
+
+@media (max-width: 768px) {
+  .input-section {
+    min-height: 180px; /* Slightly shorter on mobile */
+  }
 }
 
 .hero-section {

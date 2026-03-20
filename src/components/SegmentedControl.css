@@ -28,8 +28,11 @@
   padding: 6px;
   background: rgba(0, 0, 0, 0.05);
   overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  height: 48px; /* Fixed height to prevent vertical jumping */
 }
 
 @media (max-width: 768px) {
@@ -41,13 +44,14 @@
   }
 }
 
-.sc-root.sc-tabs .sc-seg {
-  flex: 1 0 auto;
-  min-width: 100px;
-}
-
 .sc-root.sc-tabs::-webkit-scrollbar {
   display: none;
+}
+
+.sc-root.sc-tabs .sc-seg {
+  flex: 0 0 auto; /* Don't grow, don't shrink, stay based on content */
+  min-width: 110px;
+  white-space: nowrap;
 }
 
 .dark .sc-root,
