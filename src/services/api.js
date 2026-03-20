@@ -2,107 +2,72 @@ import axios from "axios";
 
 const getBaseURL = () => {
   const envURL = import.meta.env.VITE_API_BASE_URL;
-  if (!envURL) return "/api";
+  if (!envURL) return "/api/";
   
-  // If the user provided a full URL but forgot the /api suffix, add it.
-  // This handles the case where VITE_API_BASE_URL is "https://backend.com" 
-  // but routes are at "https://backend.com/api/..."
-  return envURL.endsWith("/api") ? envURL : `${envURL.replace(/\/$/, "")}/api`;
+  // Ensure the URL ends with /api/
+  let base = envURL.trim().replace(/\/$/, "");
+  if (!base.endsWith("/api")) {
+    base += "/api";
+  }
+  return base + "/";
 };
 
 const api = axios.create({
   baseURL: getBaseURL(),
-  timeout: 120000, // 2 min — LLM can be slow on free tier
+  timeout: 120000,
   headers: { "Content-Type": "application/json" },
 });
 
-/**
- * Submit a claim for AI fact-checking.
- * @param {string} claim - The news claim to verify.
- * @returns {Promise<object>} Fact-check result with verdict, confidence, etc.
- */
 export const checkFact = async (claim) => {
-  const { data } = await api.post("/fact-check", { claim });
+  const { data } = await api.post("fact-check", { claim });
   return data;
 };
 
-/**
- * Submit an image screenshot for OCR text extraction and fact-checking.
- * @param {File} imageFile - The screenshot image file.
- * @returns {Promise<object>} Fact-check result based on OCR text.
- */
 export const checkFactImage = async (imageFile) => {
   const formData = new FormData();
   formData.append("image", imageFile);
 
-  const { data } = await api.post("/fact-check-image", formData, {
+  const { data } = await api.post("fact-check-image", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return data;
 };
 
-/**
- * Submit a URL for article text extraction and fact-checking.
- * @param {string} url - The article URL.
- * @returns {Promise<object>} Multiple fact-check results based on the article's claims.
- */
 export const checkFactUrl = async (url) => {
-  const { data } = await api.post("/fact-check-url", { url }, {
-    headers: { "Content-Type": "application/json" },
-  });
+  const { data } = await api.post("fact-check-url", { url });
   return data;
 };
 
-/**
- * Translate a fact check result payload into the target language.
- * @param {object} result - The fact check result object.
- * @param {string} targetLang - The target language code (en, hi, gu).
- * @returns {Promise<object>} Translated fact check result.
- */
 export const translateResult = async (result, targetLang) => {
-  const { data } = await api.post("/translate", {
+  const { data } = await api.post("translate", {
     target_language: targetLang,
     result_data: result,
   });
   return data;
 };
 
-/**
- * Fetch recent fact check history.
- * @param {number} limit 
- * @returns {Promise<Array>} Array of fact check records.
- */
 export const getHistory = async (limit = 10) => {
-  const { data } = await api.get(`/history?limit=${limit}`);
+  const { data } = await api.get(`history?limit=${limit}`);
   return data;
 };
 
-/**
- * Search the fact check history by keyword.
- * @param {string} query 
- * @returns {Promise<Array>} Array of fact check records matching the query.
- */
 export const searchHistory = async (query) => {
-  const { data } = await api.get(`/history/search?q=${encodeURIComponent(query)}`);
+  const { data } = await api.get(`history/search?q=${encodeURIComponent(query)}`);
   return data;
 };
-
-// ==========================================
-// Analytics Endpoints (STEP 8)
-// ==========================================
 
 export const getTrendingClaims = async (limit = 10) => {
-  const { data } = await api.get(`/analytics/trending?limit=${limit}`);
+  const { data } = await api.get(`analytics/trending?limit=${limit}`);
   return data;
 };
 
 export const getFalseClaims = async (limit = 10) => {
-  const { data } = await api.get(`/analytics/false-claims?limit=${limit}`);
+  const { data } = await api.get(`analytics/false-claims?limit=${limit}`);
   return data;
 };
 
 export const getActivityStats = async () => {
-  const { data } = await api.get(`/analytics/activity`);
+  const { data } = await api.get(`analytics/activity`);
   return data;
 };
 
