@@ -12,6 +12,12 @@
 }
 
 @media (max-width: 768px) {
+  .claim-input {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
   .input-wrapper {
     flex-direction: column;
     gap: 12px;

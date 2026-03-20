@@ -4,6 +4,15 @@
   margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+  .pti-shell {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
 .pti-shell.is-inline {
   max-width: none;
   margin: 0;

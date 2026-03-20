@@ -32,6 +32,15 @@
   scrollbar-width: none;
 }
 
+@media (max-width: 768px) {
+  .sc-root.sc-tabs {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
 .sc-root.sc-tabs .sc-seg {
   flex: 1 0 auto;
   min-width: 100px;
